@@ -15,43 +15,147 @@ class HomeController extends Controller
             ->orderBy('order')
             ->get();
 
+        foreach($sections as $section) {
+            if($section->image) {
+                $section->image_url = asset('storage/' . $section->image);
+            }
+        }
+
         $galleries = Gallery::where('is_active', true)
             ->orderBy('order')
             ->get();
 
+        foreach($galleries as $gallery) {
+            if($gallery->image_path) {
+                $gallery->image_url = asset('storage/' . $gallery->image_path);
+            }
+        }
+
+        // بيانات السلايدر - تعديل المسار ليشمل media/
+        $sliderData = [
+            [
+                'image' => 'assets/media/first-hero.jpeg',
+                'title' => 'سوق العدد الصناعية',
+                'subtitle' => 'موقع واحد يضم نخبة من موردي العدد الصناعية',
+            ],
+            [
+                'image' => 'assets/media/second-hero.jpeg',
+                'title' => 'أفضل سوق العدد الصناعية',
+                'subtitle' => 'نوفر لك أحدث العدد وأكثرها كفاءة من أبرز الموردين',
+            ],
+            [
+                'image' => 'assets/media/first-hero.jpeg',
+                'title' => 'شركاء النجاح الصناعي',
+                'subtitle' => 'نربطك بأفضل موردي العدد الصناعية في المنطقة',
+            ],
+        ];
+
+        // بيانات قسم "من نحن"
+        $about = [
+            'p1' => 'يقدم سوق العدد الصناعية خدمات متكاملة تشمل 14 قسم إلى أسماء.',
+            'p2' => 'نهدف لتقديم كل ما يخدم عملاءنا في جهة واحدة، مع أفضل العدد الصناعية.',
+            'p3' => 'مما يجعل السوق وجهة آمنة تلبي احتياجات القطاع الصناعي المتنوع.',
+        ];
+
+        // مميزات القسم - تعديل المسار ليشمل media/
         $features = [
-            ['icon' => '📍', 'text' => 'موقع واحد'],
-            ['icon' => '🧩', 'text' => 'تخصصات متعددة'],
-            ['icon' => '🧭', 'text' => 'تنظيم واضح'],
-            ['icon' => '✅', 'text' => 'سهولة الوصول'],
+            ['label' => 'سهولة الوصول', 'icon' => 'assets/media/about-icon-one.png'],
+            ['label' => 'تنظيم واضح', 'icon' => 'assets/media/about-icon-two.png'],
+            ['label' => 'تخصصات متعددة', 'icon' => 'assets/media/about-icon-three.png'],
+            ['label' => 'موقع واحد', 'icon' => 'assets/media/about-icon-four.png'],
         ];
 
+        // بيانات الاتصال
+        $contactData = [
+            'phone' => Setting::get('phone', '+966 50 553 5649'),
+            'email' => Setting::get('email', 'info@itm-sa.com'),
+            'addressLabel' => Setting::get('address', 'حي النخيل - جده - المملكة العربية السعودية'),
+            'hours' => [
+                'الأحد - الخميس : 8:00 ص - 8:00 م',
+                'السبت : 9:00 ص - 6:00 م',
+            ],
+        ];
+
+        // بيانات الخريطة - تعديل مسار الصورة
+        $mapData = [
+            'locationLabel' => Setting::get('address', 'المنطقة - الصناعية - المدينة'),
+            'directionsUrl' => Setting::get('map_link', 'https://maps.app.goo.gl/3SkkY5sLWqqXQfZn8'),
+            'buildingImage' => 'assets/media/image-map.jpg',
+            'mapEmbedUrl' => 'https://maps.google.com/maps?q=' . urlencode(Setting::get('address', '21.5185334,39.2503431')) . '&output=embed',
+        ];
+
+        // إعدادات عامة
         $settings = [
-            'phone' => Setting::get('phone', '0501234567'),
-            'email' => Setting::get('email', 'info@example.com'),
-            'address' => Setting::get('address', 'حي النخيل - جدة - المملكة العربية السعودية'),
-            'working_hours' => Setting::get('working_hours', 'السبت–الخميس: 8:00 ص – 8:00 م'),
-            'map_location' => Setting::get('map_location', 'G792%2BC48%20%D8%A7%D9%84%D9%86%D8%AE%D9%8A%D9%84%20%D8%AC%D8%AF%D8%A9'),
-            'map_link' => Setting::get('map_link', 'https://maps.app.goo.gl/3SkkY5sLWqqXQfZn8'),
+            'phone' => $contactData['phone'],
+            'email' => $contactData['email'],
+            'address' => $contactData['addressLabel'],
+            'working_hours' => $contactData['hours'][0],
+            'map_location' => Setting::get('map_location', '21.5185334,39.2503431'),
+            'map_link' => $mapData['directionsUrl'],
         ];
 
-        return view('home', compact('sections', 'galleries', 'features', 'settings'));
+        return view('home', compact(
+            'sections',
+            'galleries',
+            'sliderData',
+            'about',
+            'features',
+            'contactData',
+            'mapData',
+            'settings'
+        ));
     }
 
-    public function contact(Request $request)
-    {
-        $request->validate([
+   public function contact(Request $request)
+{
+    try {
+        // التحقق من صحة البيانات
+        $validator = \Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'subject' => 'nullable|string|max:255',
-            'message' => 'required|string',
+            'phone' => 'required|string|max:20',
+            'message' => 'required|string|min:10',
         ]);
 
-        \App\Models\Contact::create([
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'خطأ في التحقق من البيانات',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        // تخزين البيانات في قاعدة البيانات
+        $contact = \App\Models\Contact::create([
             'name' => $request->name,
-            'phone' => $request->subject ?? 'غير محدد',
+            'phone' => $request->phone,
             'message' => $request->message,
+            'is_read' => false
         ]);
 
-        return response()->json(['success' => true, 'message' => 'تم استلام رسالتك بنجاح']);
+        return response()->json([
+            'success' => true,
+            'message' => 'تم إرسال الرسالة بنجاح',
+            'data' => [
+                'id' => $contact->id,
+                'name' => $contact->name,
+                'created_at' => $contact->created_at->format('Y-m-d H:i')
+            ]
+        ]);
+
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'خطأ في التحقق من البيانات',
+            'errors' => $e->errors()
+        ], 422);
+
+    } catch (\Exception $e) {
+        \Log::error('Contact form error: ' . $e->getMessage());
+
+        return response()->json([
+            'success' => false,
+            'message' => 'حدث خطأ في الخادم، الرجاء المحاولة لاحقاً'
+        ], 500);
     }
+}
 }

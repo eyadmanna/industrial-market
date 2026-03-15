@@ -13,7 +13,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.sections.store') }}" method="POST">
+            <form action="{{ route('admin.sections.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
@@ -26,11 +26,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="icon" class="form-label">الأيقونة (إيموجي)</label>
-                    <input type="text" class="form-control @error('icon') is-invalid @enderror"
-                           id="icon" name="icon" value="{{ old('icon', '⚙️') }}" required>
-                    <small class="text-muted">مثال: ⚙️, 🔧, 🛠️, ⚡</small>
-                    @error('icon')
+                    <label for="image" class="form-label">صورة القسم</label>
+                    <input type="file" class="form-control @error('image') is-invalid @enderror"
+                           id="image" name="image" accept="image/*" required>
+                    <small class="text-muted">يفضل صورة مربعة 100x100 بكسل</small>
+                    @error('image')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

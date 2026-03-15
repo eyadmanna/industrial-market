@@ -27,6 +27,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // معرض الصور
     Route::resource('gallery', GalleryController::class)->except(['show', 'edit']);
     Route::post('gallery/reorder', [GalleryController::class, 'reorder'])->name('gallery.reorder');
+    Route::post('gallery/{gallery}/toggle', [GalleryController::class, 'toggle'])->name('gallery.toggle');
 
     // الرسائل
     Route::resource('contacts', ContactController::class)->only(['index', 'show', 'destroy']);
@@ -34,8 +35,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // الإعدادات
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
-
-    Route::post('gallery/{gallery}/toggle', [GalleryController::class, 'toggle'])->name('gallery.toggle');
 });
 
 // ✅ مسارات المصادقة (Login, Register, etc)

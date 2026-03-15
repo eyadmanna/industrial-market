@@ -40,7 +40,7 @@
 
 <!-- Hero Section -->
 <section id="hero">
-    <!-- Slides injected by JS from database -->
+    <!-- Slides will be injected by JS -->
 
     <!-- Prev Arrow -->
     <button class="nav-arrow nav-prev" id="prevBtn" aria-label="السابق">
@@ -68,17 +68,19 @@
 
         <!-- Description -->
         <div id="about-desc" class="section-subtitle js-reveal">
-            <p id="about-p1">يضم السوق هنجرًا متكاملًا مقسمًا إلى <strong>{{ $sections->count() }} قسمًا</strong></p>
-            <p id="about-p2">كل قسم متخصص ويُدار بشكل مستقل</p>
-            <p id="about-p3">الهدف تعريف الزوار بالسوق ككيان جامع وتسهيل الوصول</p>
+            <p id="about-p1">{{ $about['p1'] ?? 'يقدم سوق العدد الصناعية خدمات متكاملة تشمل 14 قسم إلى أسماء.' }}</p>
+            <p id="about-p2">{{ $about['p2'] ?? 'نهدف لتقديم كل ما يخدم عملاءنا في جهة واحدة، مع أفضل العدد الصناعية.' }}</p>
+            <p id="about-p3">{{ $about['p3'] ?? 'مما يجعل السوق وجهة آمنة تلبي احتياجات القطاع الصناعي المتنوع.' }}</p>
         </div>
 
         <!-- Feature bar -->
         <div id="about-bar" class="about-bar js-reveal">
-            @foreach($features as $feature)
-            <div class="about-bar-item">
-                <span class="about-bar-icon">{{ $feature['icon'] }}</span>
-                <span class="about-bar-text">{{ $feature['text'] }}</span>
+            @foreach($features as $index => $feature)
+            <div class="about-item js-reveal" style="--delay: {{ 300 + $index * 100 }}ms">
+                <div class="about-icon">
+                    <img src="{{ asset($feature['icon']) }}" alt="{{ $feature['label'] }}" />
+                </div>
+                <p class="about-label">{{ $feature['label'] }}</p>
             </div>
             @endforeach
         </div>
@@ -97,7 +99,7 @@
             </div>
 
             <p id="depts-subtitle" class="section-subtitle js-reveal">
-                يضم السوق {{ $sections->count() }} قسمًا متنوعًا
+                يضم السوق {{ $sections->count() }} قسماً متخصصاً .. كل قسم مستقل ومتخصص في مجال عمل محدد
             </p>
 
             <!-- Slider area -->
@@ -112,12 +114,16 @@
 
                 <div class="depts-slider swiper deptsSwiper">
                     <div class="swiper-wrapper" id="depts-slider-wrapper">
-                        @foreach($sections as $section)
-                        <div class="swiper-slide">
+                        @foreach($sections as $index => $section)
+                        <div class="swiper-slide dept-slide js-reveal" style="--delay: {{ 220 + $index * 50 }}ms">
                             <div class="dept-card">
-                                <span class="dept-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
-                                <div class="dept-icon">{{ $section->icon }}</div>
-                                <h3 class="dept-title">{{ $section->name_ar }}</h3>
+                                @if($section->image)
+                                    <img class="dept-icon" src="{{ asset('storage/' . $section->image) }}"
+                                        alt="{{ $section->name_ar }}" />
+                                @else
+                                    <div class="dept-icon dept-emoji">🏭</div>
+                                @endif
+                                <p class="dept-name">{{ $section->name_ar }}</p>
                             </div>
                         </div>
                         @endforeach
@@ -150,17 +156,21 @@
             <div class="gallery-viewport">
                 <div id="gallery-track" class="gallery-track">
                     @forelse($galleries as $gallery)
-                    <div class="gallery-item">
-                        <img src="{{ asset('storage/' . $gallery->image_path) }}"
-                             alt="{{ $gallery->title_ar ?? 'صورة من السوق' }}">
+                    <div class="gallery-slide">
+                        <div class="gallery-card">
+                            <img class="gallery-image" src="{{ asset('storage/' . $gallery->image_path) }}"
+                                alt="{{ $gallery->title_ar ?? 'صورة من السوق' }}">
+                        </div>
                     </div>
                     @empty
-                    <div class="gallery-item">
-                        <img src="{{ asset('assets/media/sample1.jpg') }}" alt="صورة من السوق">
+                    @foreach(range(1, 6) as $i)
+                    <div class="gallery-slide">
+                        <div class="gallery-card">
+                            <img class="gallery-image" src="{{ asset('assets/media/placeholder.jpg') }}"
+                                alt="صورة من السوق">
+                        </div>
                     </div>
-                    <div class="gallery-item">
-                        <img src="{{ asset('assets/media/sample2.jpg') }}" alt="صورة من السوق">
-                    </div>
+                    @endforeach
                     @endforelse
                 </div>
             </div>
@@ -188,7 +198,7 @@
             <div class="map-right">
                 <div class="map-image-wrap">
                     <img id="map-building-image" class="map-building-image"
-                         src="{{ asset('assets/media/building.jpg') }}"
+                         src="{{ asset($mapData['building_image'] ?? 'assets/media/building.jpg') }}"
                          alt="موقع السوق" />
 
                     <div class="map-image-overlay"></div>
@@ -244,15 +254,35 @@
                     @csrf
                     <div class="contact-form-row">
                         <div class="input-group">
-                            <input id="contact-name" type="text" name="name" placeholder="الاسم" required />
+                            <input id="contact-name" type="text" name="name"
+                                placeholder="الاسم *"
+                                required
+                                minlength="3"
+                                maxlength="255" />
+                            <small class="field-hint" style="display: block; color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 5px;">
+                                الحد الأدنى 3 أحرف
+                            </small>
                         </div>
                         <div class="input-group">
-                            <input id="contact-subject" type="text" name="subject" placeholder="الموضوع" />
+                            <input id="contact-phone" type="text" name="phone"
+                                placeholder="رقم الجوال *"
+                                required
+                                minlength="10"
+                                maxlength="20" />
+                            <small class="field-hint" style="display: block; color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 5px;">
+                                مثال: 05xxxxxxxx
+                            </small>
                         </div>
                     </div>
 
                     <div class="input-group textarea-group">
-                        <textarea id="contact-message" name="message" placeholder="الرسالة" required></textarea>
+                        <textarea id="contact-message" name="message"
+                                placeholder="الرسالة *"
+                                required
+                                minlength="10"></textarea>
+                        <small class="field-hint" style="display: block; color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 5px;">
+                            الحد الأدنى 10 أحرف
+                        </small>
                     </div>
 
                     <div class="contact-submit-row">
@@ -268,20 +298,63 @@
             <!-- Left: Info -->
             <div class="contact-info js-reveal" id="contact-info">
                 <div class="contact-info-item">
-                    <span class="info-icon">📞</span>
-                    <span class="info-text">{{ $settings['phone'] }}</span>
+                    <div class="contact-info-value-icon">
+                        <div class="contact-info-icon">
+                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+                                <circle cx="32" cy="32" r="24" stroke="#f3f6fb" stroke-width="4" opacity=".9"/>
+                                <path d="M25 18c2 12 9 20 21 28" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
+                                <path d="M40 39l6 7" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info-label">الهاتف</div>
+                    </div>
+                    <div class="contact-info-value-icon" id="contact-phone">
+                        <div class="contact-info-value" style="direction:ltr">{{ $settings['phone'] }}</div>
+                        <div class="contact-info-icon">
+                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+                                <circle cx="32" cy="32" r="24" stroke="#f3f6fb" stroke-width="4" opacity=".9"/>
+                                <path d="M25 18c2 12 9 20 21 28" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
+                                <path d="M40 39l6 7" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="contact-info-item">
-                    <span class="info-icon">✉️</span>
-                    <span class="info-text">{{ $settings['email'] }}</span>
+                    <div class="contact-info-value-icon">
+                        <div class="contact-info-icon">
+                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+                                <path d="M12 18l20 16 20-16" stroke="#f3f6fb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                <rect x="10" y="16" width="44" height="32" fill="#f3f6fb" opacity=".95"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info-label">{{ $settings['address'] }}</div>
+                    </div>
+                    <div class="contact-info-value-icon" id="contact-email">
+                        <div class="contact-info-value">{{ $settings['email'] }}</div>
+                        <div class="contact-info-icon">
+                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+                                <rect x="10" y="16" width="44" height="32" fill="#f3f6fb" opacity=".95"/>
+                                <path d="M12 18l20 16 20-16" stroke="#6c7c96" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="contact-info-item">
-                    <span class="info-icon">🕒</span>
-                    <span class="info-text">{{ $settings['working_hours'] }}</span>
-                </div>
-                <div class="contact-info-item">
-                    <span class="info-icon">📍</span>
-                    <span class="info-text">{{ $settings['address'] }}</span>
+                    <div class="contact-info-value-icon">
+                        <div class="contact-info-icon">
+                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+                                <circle cx="32" cy="32" r="24" stroke="#f3f6fb" stroke-width="4"/>
+                                <path d="M32 20v13l10 7" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info-value small">
+                            @foreach($contactData['hours'] as $hour)
+                                <div>{{ $hour }}</div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -324,56 +397,200 @@
 @endsection
 
 @push('scripts')
-<script>
-// تهيئة Swiper بعد تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-    // Departments Swiper
-    new Swiper('.deptsSwiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        navigation: {
-            prevEl: '#depts-prev',
-            nextEl: '#depts-next',
-        },
-        pagination: {
-            el: '#depts-pagination',
-            clickable: true,
-        },
-        breakpoints: {
-            640: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 },
-        }
-    });
+<?php
+// تجهيز البيانات في PHP أولاً
+$processedSections = $sections->map(function($section) {
+    return [
+        'id' => $section->id,
+        'name_ar' => $section->name_ar,
+        'image' => $section->image ? asset('storage/' . $section->image) : null,
+        'order' => $section->order
+    ];
+});
 
-    // معالجة نموذج الاتصال
+$processedGalleries = $galleries->map(function($gallery) {
+    return [
+        'id' => $gallery->id,
+        'url' => $gallery->image_path ? asset('storage/' . $gallery->image_path) : null,
+        'alt' => $gallery->title_ar ?? 'صورة من السوق'
+    ];
+});
+?>
+
+<script>
+// تمرير البيانات المجهزة من Laravel إلى JavaScript
+window.LaravelData = {
+    sliderData: @json($sliderData),
+    sections: @json($processedSections),
+    galleries: @json($processedGalleries),
+    contactData: @json($contactData),
+    mapData: @json($mapData),
+    features: @json($features),
+    about: @json($about),
+    assetPath: '{{ asset('') }}'
+};
+
+console.log('✅ LaravelData loaded:', window.LaravelData);
+
+
+document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
+
     if (contactForm) {
+        // دالة مساعدة لإظهار الإشعارات
+        function showNotification(type, message, errors = null) {
+            // إزالة أي إشعار سابق
+            const oldNotification = document.querySelector('.custom-notification');
+            if (oldNotification) {
+                oldNotification.remove();
+            }
+
+            // إنشاء عنصر الإشعار
+            const notification = document.createElement('div');
+            notification.className = 'custom-notification';
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+                color: white;
+                padding: 15px 30px;
+                border-radius: 8px;
+                z-index: 9999;
+                font-size: 16px;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                direction: rtl;
+                max-width: 90%;
+                text-align: center;
+                animation: slideDown 0.3s ease;
+            `;
+
+            // إضافة animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from {
+                        top: -100px;
+                        opacity: 0;
+                    }
+                    to {
+                        top: 20px;
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // محتوى الإشعار
+            let messageHtml = (type === 'success' ? '✅ ' : '❌ ') + message;
+
+            // إضافة الأخطاء إن وجدت
+            if (errors) {
+                messageHtml += '<br><small style="font-size: 14px; opacity: 0.9;">';
+                Object.values(errors).forEach(error => {
+                    messageHtml += '• ' + error[0] + '<br>';
+                });
+                messageHtml += '</small>';
+            }
+
+            notification.innerHTML = messageHtml;
+            document.body.appendChild(notification);
+
+            // إخفاء الإشعار بعد 5 ثواني
+            setTimeout(() => {
+                notification.style.animation = 'slideDown 0.3s reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+
+        // دالة لإزالة علامات التحقق القديمة
+        function removeValidationStyles() {
+            document.querySelectorAll('.input-group input, .input-group textarea').forEach(field => {
+                field.style.borderColor = '';
+                field.style.backgroundColor = '';
+            });
+        }
+
+        // دالة لإظهار أخطاء التحقق
+        function showValidationErrors(errors) {
+            removeValidationStyles();
+
+            // تحديد الحقول التي بها أخطاء
+            const fieldMappings = {
+                'name': 'contact-name',
+                'phone': 'contact-phone',
+                'message': 'contact-message'
+            };
+
+            Object.keys(errors).forEach(field => {
+                const elementId = fieldMappings[field];
+                if (elementId) {
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.style.borderColor = '#f44336';
+                        element.style.backgroundColor = 'rgba(244, 67, 54, 0.05)';
+                    }
+                }
+            });
+        }
+
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            const formData = new FormData(this);
-            const responseDiv = document.getElementById('form-message');
+            // إزالة أنماط التحقق القديمة
+            removeValidationStyles();
+
+            // جمع البيانات
+            const formData = new FormData();
+            const name = document.getElementById('contact-name')?.value.trim() || '';
+            const phone = document.getElementById('contact-phone')?.value.trim() || '';
+            const message = document.getElementById('contact-message')?.value.trim() || '';
+
+            formData.append('name', name);
+            formData.append('phone', phone);
+            formData.append('message', message);
+            formData.append('_token', '{{ csrf_token() }}');
+
+            // تعطيل الزر أثناء الإرسال
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="btn-arrow">⟳</span> <span>جاري الإرسال...</span>';
+            submitBtn.disabled = true;
 
             try {
                 const response = await fetch('{{ route("contact.send") }}', {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
                     }
                 });
 
                 const data = await response.json();
 
                 if (data.success) {
-                    responseDiv.innerHTML = '<div class="alert alert-success">تم إرسال رسالتك بنجاح</div>';
-                    this.reset();
+                    // نجاح الإرسال
+                    showNotification('success', data.message);
+                    contactForm.reset();
                 } else {
-                    responseDiv.innerHTML = '<div class="alert alert-error">حدث خطأ، حاول مرة أخرى</div>';
+                    // فشل الإرسال
+                    if (data.errors) {
+                        showNotification('error', 'يرجى تصحيح الأخطاء في النموذج');
+                        showValidationErrors(data.errors);
+                    } else {
+                        showNotification('error', data.message || 'حدث خطأ في الإرسال');
+                    }
                 }
             } catch (error) {
-                responseDiv.innerHTML = '<div class="alert alert-error">حدث خطأ في الاتصال</div>';
+                console.error('Error:', error);
+                showNotification('error', 'حدث خطأ في الاتصال بالخادم');
+            } finally {
+                // إعادة الزر لحالته الطبيعية
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
     }

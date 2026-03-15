@@ -20,18 +20,25 @@ class SectionController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name_ar' => 'required|string|max:255',
-            'icon' => 'required|string|max:10',
-            'order' => 'integer',
-        ]);
+{
+    $request->validate([
+        'name_ar' => 'required|string|max:255',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'order' => 'integer|nullable',
+    ]);
 
-        Section::create($request->all());
+    $data = $request->only(['name_ar', 'order', 'is_active']);
 
-        return redirect()->route('admin.sections.index')
-            ->with('success', 'تم إضافة القسم بنجاح');
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('sections', 'public');
+        $data['image'] = $path;
     }
+
+    Section::create($data);
+
+    return redirect()->route('admin.sections.index')
+        ->with('success', 'تم إضافة القسم بنجاح');
+}
 
     public function edit(Section $section)
     {
@@ -39,18 +46,29 @@ class SectionController extends Controller
     }
 
     public function update(Request $request, Section $section)
-    {
-        $request->validate([
-            'name_ar' => 'required|string|max:255',
-            'icon' => 'required|string|max:10',
-            'order' => 'integer',
-        ]);
+{
+    $request->validate([
+        'name_ar' => 'required|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'order' => 'integer|nullable',
+    ]);
 
-        $section->update($request->all());
+    $data = $request->only(['name_ar', 'order', 'is_active']);
 
-        return redirect()->route('admin.sections.index')
-            ->with('success', 'تم تحديث القسم بنجاح');
+    if ($request->hasFile('image')) {
+        // حذف الصورة القديمة إذا وجدت
+        if ($section->image) {
+            \Storage::disk('public')->delete($section->image);
+        }
+        $path = $request->file('image')->store('sections', 'public');
+        $data['image'] = $path;
     }
+
+    $section->update($data);
+
+    return redirect()->route('admin.sections.index')
+        ->with('success', 'تم تحديث القسم بنجاح');
+}
 
     public function destroy(Section $section)
     {

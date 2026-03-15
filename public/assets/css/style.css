@@ -13,7 +13,7 @@
    --bar: #dfe6ed;
   --divider: #c8d2dc;
 
-  
+
   /* Shared Theme Variables */
   --font-main: "Cairo", sans-serif;
   --line-height: 1.8;
@@ -61,7 +61,7 @@
   --contact-yellow-dark: #e1a500;
   --contact-shadow: rgba(0,0,0,.28);
 
- 
+
 }
 
 @media (max-width: 768px) {
@@ -1317,3 +1317,17 @@ body {
 .skype { background: #4aa3ff; }
 
 .social-icon:hover { transform: translateY(-2px); }
+
+.dept-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.dept-emoji {
+    font-size: 4rem;
+    line-height: 1;
+    margin-bottom: 12px;
+    text-align: center;
+}

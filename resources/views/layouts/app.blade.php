@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     @stack('styles')
 </head>
@@ -26,7 +26,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Custom JS -->
-    <script src="{{ asset('js/view_js.js') }}"></script>
+    <script src="{{ asset('assets/js/view_js.js') }}"></script>
 
     @stack('scripts')
 </body>

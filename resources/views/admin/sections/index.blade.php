@@ -17,7 +17,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>الأيقونة</th>
+                        <th>الصورة</th>
                         <th>اسم القسم</th>
                         <th>الترتيب</th>
                         <th>الحالة</th>
@@ -28,7 +28,15 @@
                     @foreach($sections as $index => $section)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td style="font-size: 1.5rem;">{{ $section->icon }}</td>
+                        <td>
+                            @if($section->image)
+                                <img src="{{ asset('storage/' . $section->image) }}"
+                                     alt="{{ $section->name_ar }}"
+                                     style="width: 50px; height: 50px; object-fit: contain;">
+                            @else
+                                <span class="text-muted">لا توجد</span>
+                            @endif
+                        </td>
                         <td>{{ $section->name_ar }}</td>
                         <td>{{ $section->order }}</td>
                         <td>

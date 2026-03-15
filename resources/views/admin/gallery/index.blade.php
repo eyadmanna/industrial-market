@@ -73,15 +73,81 @@
 
 @push('scripts')
 <script>
-document.querySelectorAll('.toggle-active').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        fetch(`/admin/gallery/${this.dataset.id}/toggle`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ is_active: this.checked })
+document.addEventListener('DOMContentLoaded', function() {
+    // دالة مساعدة لإظهار الإشعارات (بدون toastr)
+    function showNotification(type, message) {
+
+        // يمكنك أيضاً إنشاء إشعار مخصص
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            z-index: 9999;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    // استخدام fetch API مع المسار الصحيح
+    document.querySelectorAll('.toggle-active').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const galleryId = this.dataset.id;
+            const isActive = this.checked;
+            const originalState = !isActive;
+
+            // تعطيل checkbox مؤقتاً
+            this.disabled = true;
+
+            // بناء المسار الصحيح
+            const baseUrl = window.location.origin;
+            const toggleUrl = `${baseUrl}/industrial-market/public/admin/gallery/${galleryId}/toggle`;
+
+            console.log('Sending request to:', toggleUrl); // للتأكد
+
+            fetch(toggleUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ is_active: isActive })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log('✅', data.message);
+                    showNotification('success', data.message);
+                } else {
+                    this.checked = originalState;
+                    throw new Error(data.message || 'حدث خطأ');
+                }
+            })
+            .catch(error => {
+                console.error('❌ Error:', error);
+                this.checked = originalState;
+                showNotification('error', error.message || 'حدث خطأ في تحديث الحالة');
+            })
+            .finally(() => {
+                this.disabled = false;
+            });
         });
     });
 });

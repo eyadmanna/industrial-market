@@ -70,7 +70,25 @@ class GalleryController extends Controller
 
     public function toggle(Request $request, Gallery $gallery)
     {
-        $gallery->update(['is_active' => $request->is_active]);
-        return response()->json(['success' => true]);
+        try {
+            $request->validate([
+                'is_active' => 'required|boolean'
+            ]);
+
+            $gallery->update([
+                'is_active' => $request->is_active
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'تم تحديث الحالة بنجاح',
+                'is_active' => $gallery->is_active
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'حدث خطأ: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

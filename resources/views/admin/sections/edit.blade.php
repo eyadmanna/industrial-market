@@ -13,7 +13,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.sections.update', $section) }}" method="POST">
+            <form action="{{ route('admin.sections.update', $section) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -27,10 +27,24 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="icon" class="form-label">الأيقونة</label>
-                    <input type="text" class="form-control @error('icon') is-invalid @enderror"
-                           id="icon" name="icon" value="{{ old('icon', $section->icon) }}" required>
-                    @error('icon')
+                    <label class="form-label">الصورة الحالية</label>
+                    <div class="mb-2">
+                        @if($section->image)
+                            <img src="{{ asset('storage/' . $section->image) }}"
+                                 alt="{{ $section->name_ar }}"
+                                 style="width: 100px; height: 100px; object-fit: contain; border: 1px solid #ddd; padding: 5px;">
+                        @else
+                            <p class="text-muted">لا توجد صورة</p>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">تغيير الصورة</label>
+                    <input type="file" class="form-control @error('image') is-invalid @enderror"
+                           id="image" name="image" accept="image/*">
+                    <small class="text-muted">اتركه فارغاً إذا لم ترد التغيير</small>
+                    @error('image')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
