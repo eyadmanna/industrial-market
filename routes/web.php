@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SliderController;
 
 // ✅ الصفحة الرئيسية - متاحة للجميع
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -20,6 +21,10 @@ Route::get('/dashboard', function () {
 // ✅ لوحة التحكم - تحتاج تسجيل دخول + صلاحيات admin
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource('sliders', SliderController::class);
+    Route::post('sliders/{slider}/toggle', [SliderController::class, 'toggle'])->name('sliders.toggle');
+    Route::post('sliders/reorder', [SliderController::class, 'reorder'])->name('sliders.reorder');
 
     // الأقسام
     Route::resource('sections', SectionController::class);
@@ -40,7 +45,4 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 // ✅ مسارات المصادقة (Login, Register, etc)
 Auth::routes();
 
-// ✅ بعد تسجيل الدخول - وجهة مخصصة
-Route::get('/home', function () {
-    return redirect()->route('home');
-})->name('home');
+

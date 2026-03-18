@@ -71,6 +71,10 @@
                href="{{ route('admin.dashboard') }}">
                 <i class="bi bi-speedometer2"></i> الرئيسية
             </a>
+            <a class="nav-link {{ request()->routeIs('admin.sliders.*') ? 'active' : '' }}"
+                href="{{ route('admin.sliders.index') }}">
+                <i class="bi bi-images"></i> السلايدر
+            </a>
             <a class="nav-link {{ request()->routeIs('admin.sections.*') ? 'active' : '' }}"
                href="{{ route('admin.sections.index') }}">
                 <i class="bi bi-grid-3x3-gap-fill"></i> الأقسام

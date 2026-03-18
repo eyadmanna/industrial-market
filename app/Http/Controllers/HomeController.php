@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Section;
 use App\Models\Gallery;
 use App\Models\Setting;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -31,8 +32,18 @@ class HomeController extends Controller
             }
         }
 
+        $sliderData = Slider::where('is_active', true)
+            ->orderBy('order')
+            ->get()
+            ->map(function($slider) {
+                return [
+                    'image' => asset('storage/' . $slider->image),
+                    'title' => $slider->title,
+                    'subtitle' => $slider->subtitle
+                ];
+            });
         // بيانات السلايدر - تعديل المسار ليشمل media/
-        $sliderData = [
+        /*$sliderData = [
             [
                 'image' => 'assets/media/first-hero.jpeg',
                 'title' => 'سوق العدد الصناعية',
@@ -48,7 +59,7 @@ class HomeController extends Controller
                 'title' => 'شركاء النجاح الصناعي',
                 'subtitle' => 'نربطك بأفضل موردي العدد الصناعية في المنطقة',
             ],
-        ];
+        ];*/
 
         // بيانات قسم "من نحن"
         $about = [
@@ -95,6 +106,7 @@ class HomeController extends Controller
         ];
 
         return view('home', compact(
+            'sliderData',
             'sections',
             'galleries',
             'sliderData',

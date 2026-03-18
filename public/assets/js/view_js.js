@@ -208,9 +208,18 @@ function initializeApp(laravelData) {
             timer = setInterval(() => goTo(currentIdx + 1), 5000);
         }
 
-        byId("prevBtn")?.addEventListener("click", (e) => { e.preventDefault(); goTo(currentIdx - 1); });
-        byId("nextBtn")?.addEventListener("click", (e) => { e.preventDefault(); goTo(currentIdx + 1); });
+        // تعديل أزرار السلايدر للغة العربية (RTL)
+        byId("prevBtn")?.addEventListener("click", (e) => {
+            e.preventDefault();
+            // في RTL، الزر الأيسر (prev) يذهب للتالي
+            goTo(currentIdx + 1);
+        });
 
+        byId("nextBtn")?.addEventListener("click", (e) => {
+            e.preventDefault();
+            // في RTL، الزر الأيمن (next) يذهب للسابق
+            goTo(currentIdx - 1);
+        });
         startTimer();
     }
 
