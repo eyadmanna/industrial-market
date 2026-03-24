@@ -68,9 +68,7 @@
 
         <!-- Description -->
         <div id="about-desc" class="section-subtitle js-reveal">
-            <p id="about-p1">{{ $about['p1'] ?? 'يقدم سوق العدد الصناعية خدمات متكاملة تشمل 14 قسم إلى أسماء.' }}</p>
-            <p id="about-p2">{{ $about['p2'] ?? 'نهدف لتقديم كل ما يخدم عملاءنا في جهة واحدة، مع أفضل العدد الصناعية.' }}</p>
-            <p id="about-p3">{{ $about['p3'] ?? 'مما يجعل السوق وجهة آمنة تلبي احتياجات القطاع الصناعي المتنوع.' }}</p>
+            <p>{{ $aboutDescription }}</p>
         </div>
 
         <!-- Feature bar -->
@@ -99,7 +97,7 @@
             </div>
 
             <p id="depts-subtitle" class="section-subtitle js-reveal">
-                يضم السوق {{ $sections->count() }} قسماً متخصصاً .. كل قسم مستقل ومتخصص في مجال عمل محدد
+                {{ $departmentsDescription }}
             </p>
 
             <!-- Slider area -->
@@ -426,7 +424,6 @@ window.LaravelData = {
     contactData: @json($contactData),
     mapData: @json($mapData),
     features: @json($features),
-    about: @json($about),
     assetPath: '{{ asset('') }}'
 };
 

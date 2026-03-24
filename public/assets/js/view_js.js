@@ -100,6 +100,8 @@ function initializeApp(laravelData) {
         }
     }
 
+    window.scrollToSection = scrollToSection;
+
     // ─────────────────────────────────────────────────────────────────────────────
     // 4. FEATURE MODULES
     // ─────────────────────────────────────────────────────────────────────────────
@@ -177,7 +179,7 @@ function initializeApp(laravelData) {
                         <p class="slide-subtitle">${slide.subtitle}</p>
                         <div class="slide-buttons">
                             <button class="btn btn-primary" onclick="scrollToSection('contact')">&#9658; تواصل معنا</button>
-                            <button class="btn btn-secondary" onclick="scrollToSection('map')">&#9658; اعرف الموقع</button>
+                            <button class="btn btn-secondary" onclick="scrollToSection('map')">&#9658; الوصول للموقع </button>
                         </div>
                     </div>
                 </div>
@@ -255,10 +257,6 @@ function initDepartments() {
     const wrapper = byId("depts-slider-wrapper");
     const subtitle = byId("depts-subtitle");
     if (!wrapper || !sections?.length) return;
-
-    if (subtitle) {
-        subtitle.textContent = `يضم السوق ${sections.length} قسماً متخصصاً .. كل قسم مستقل ومتخصص في مجال عمل محدد`;
-    }
 
     wrapper.innerHTML = "";
     sections.forEach((dept, i) => {

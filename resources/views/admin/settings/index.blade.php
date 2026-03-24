@@ -50,6 +50,34 @@
                            value="{{ $settings['map_link'] }}" required>
                 </div>
 
+                <!-- ✅ وصف قسم من نحن -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5>وصف قسم "نبذة عن السوق"</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="about_description" class="form-label">الوصف</label>
+                            <textarea class="form-control" id="about_description" name="about_description" rows="4">{{ $settings['about_description'] ?? '' }}</textarea>
+                            <small class="text-muted">هذا النص يظهر تحت عنوان "نبذة عن السوق"</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ✅ وصف قسم الأقسام -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5>وصف قسم "أقسام السوق"</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="departments_description" class="form-label">الوصف</label>
+                            <textarea class="form-control" id="departments_description" name="departments_description" rows="3">{{ $settings['departments_description'] ?? '' }}</textarea>
+                            <small class="text-muted">هذا النص يظهر تحت عنوان "أقسام السوق"</small>
+                        </div>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary">حفظ الإعدادات</button>
             </form>
         </div>

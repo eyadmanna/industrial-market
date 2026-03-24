@@ -61,12 +61,11 @@ class HomeController extends Controller
             ],
         ];*/
 
-        // بيانات قسم "من نحن"
-        $about = [
-            'p1' => 'يقدم سوق العدد الصناعية خدمات متكاملة تشمل 14 قسم إلى أسماء.',
-            'p2' => 'نهدف لتقديم كل ما يخدم عملاءنا في جهة واحدة، مع أفضل العدد الصناعية.',
-            'p3' => 'مما يجعل السوق وجهة آمنة تلبي احتياجات القطاع الصناعي المتنوع.',
-        ];
+
+        $aboutDescription = Setting::get('about_description', 'يقدم سوق العدد الصناعية خدمات متكاملة تشمل 14 قسم إلى أسماء. نهدف لتقديم كل ما يخدم عملاءنا في جهة واحدة، مع أفضل العدد الصناعية. مما يجعل السوق وجهة آمنة تلبي احتياجات القطاع الصناعي المتنوع.');
+
+        // نص قسم الأقسام
+        $departmentsDescription = Setting::get('departments_description', 'يضم السوق أقساماً متخصصة .. كل قسم مستقل ومتخصص في مجال عمل محدد');
 
         // مميزات القسم - تعديل المسار ليشمل media/
         $features = [
@@ -106,11 +105,11 @@ class HomeController extends Controller
         ];
 
         return view('home', compact(
-            'sliderData',
             'sections',
             'galleries',
             'sliderData',
-            'about',
+            'aboutDescription',
+            'departmentsDescription',
             'features',
             'contactData',
             'mapData',

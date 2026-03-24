@@ -54,6 +54,8 @@ class DatabaseSeeder extends Seeder
             ['working_hours', 'السبت–الخميس: 8:00 ص – 8:00 م', 'text'],
             ['map_location', 'G792%2BC48%20%D8%A7%D9%84%D9%86%D8%AE%D9%8A%D9%84%20%D8%AC%D8%AF%D8%A9', 'text'],
             ['map_link', 'https://maps.app.goo.gl/3SkkY5sLWqqXQfZn8', 'text'],
+            ['about_description', 'يقدم سوق العدد الصناعية خدمات متكاملة تشمل 14 قسم إلى أسماء. نهدف لتقديم كل ما يخدم عملاءنا في جهة واحدة، مع أفضل العدد الصناعية. مما يجعل السوق وجهة آمنة تلبي احتياجات القطاع الصناعي المتنوع.', 'text'],
+            ['departments_description', 'يضم السوق 14 قسماً متخصصاً .. كل قسم مستقل ومتخصص في مجال عمل محدد', 'text'],
         ];
 
         foreach ($settings as $setting) {
