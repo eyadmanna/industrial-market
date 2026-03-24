@@ -400,7 +400,7 @@ function initDepartments() {
                 <div class="contact-info-value-icon">
                     <div class="contact-info-icon">${icons.time}</div>
                     <div class="contact-info-value small">
-                        ${contactData.hours?.map(h => `<div>${h}</div>`).join("")}
+                        ${contactData.working_hours}
                     </div>
                 </div>
             </div>

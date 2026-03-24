@@ -80,10 +80,7 @@ class HomeController extends Controller
             'phone' => Setting::get('phone', '+966 50 553 5649'),
             'email' => Setting::get('email', 'info@itm-sa.com'),
             'addressLabel' => Setting::get('address', 'حي النخيل - جده - المملكة العربية السعودية'),
-            'hours' => [
-                'الأحد - الخميس : 8:00 ص - 8:00 م',
-                'السبت : 9:00 ص - 6:00 م',
-            ],
+            'working_hours' => Setting::get('working_hours', 'الأحد - الخميس : 8:00 ص - 8:00 م'),
         ];
 
         // بيانات الخريطة - تعديل مسار الصورة
@@ -99,7 +96,7 @@ class HomeController extends Controller
             'phone' => $contactData['phone'],
             'email' => $contactData['email'],
             'address' => $contactData['addressLabel'],
-            'working_hours' => $contactData['hours'][0],
+            'working_hours' => $contactData['working_hours'],
             'map_location' => Setting::get('map_location', '21.5185334,39.2503431'),
             'map_link' => $mapData['directionsUrl'],
         ];

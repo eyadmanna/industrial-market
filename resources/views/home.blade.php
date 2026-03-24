@@ -348,9 +348,7 @@
                             </svg>
                         </div>
                         <div class="contact-info-value small">
-                            @foreach($contactData['hours'] as $hour)
-                                <div>{{ $hour }}</div>
-                            @endforeach
+                            {{ $settings['working_hours'] }}
                         </div>
                     </div>
                 </div>
