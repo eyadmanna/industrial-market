@@ -210,7 +210,7 @@
                        href="{{ $settings['map_link'] }}"
                        target="_blank" rel="noopener noreferrer">
                         <span class="btn-arrow">›</span>
-                        <span>احصل على اتجاهات</span>
+                        <span>إضغط هنا للذهاب للموقع  </span>
                     </a>
                 </div>
             </div>
@@ -295,6 +295,7 @@
 
             <!-- Left: Info -->
             <div class="contact-info js-reveal" id="contact-info">
+                <!-- الهاتف -->
                 <div class="contact-info-item">
                     <div class="contact-info-value-icon">
                         <div class="contact-info-icon">
@@ -306,39 +307,41 @@
                         </div>
                         <div class="contact-info-label">الهاتف</div>
                     </div>
-                    <div class="contact-info-value-icon" id="contact-phone">
+                    <div class="contact-info-value-icon">
                         <div class="contact-info-value" style="direction:ltr">{{ $settings['phone'] }}</div>
-                        <div class="contact-info-icon">
-                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
-                                <circle cx="32" cy="32" r="24" stroke="#f3f6fb" stroke-width="4" opacity=".9"/>
-                                <path d="M25 18c2 12 9 20 21 28" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
-                                <path d="M40 39l6 7" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
-                            </svg>
-                        </div>
                     </div>
                 </div>
 
+                <!-- البريد الإلكتروني -->
                 <div class="contact-info-item">
                     <div class="contact-info-value-icon">
-                        <div class="contact-info-icon">
-                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
-                                <path d="M12 18l20 16 20-16" stroke="#f3f6fb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                                <rect x="10" y="16" width="44" height="32" fill="#f3f6fb" opacity=".95"/>
-                            </svg>
-                        </div>
-                        <div class="contact-info-label">{{ $settings['address'] }}</div>
-                    </div>
-                    <div class="contact-info-value-icon" id="contact-email">
-                        <div class="contact-info-value">{{ $settings['email'] }}</div>
                         <div class="contact-info-icon">
                             <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
                                 <rect x="10" y="16" width="44" height="32" fill="#f3f6fb" opacity=".95"/>
                                 <path d="M12 18l20 16 20-16" stroke="#6c7c96" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
+                        <div class="contact-info-label">البريد الإلكتروني</div>
+                    </div>
+                    <div class="contact-info-value-icon">
+                        <div class="contact-info-value" style="direction:ltr">{{ $settings['email'] }}</div>
                     </div>
                 </div>
 
+                <!-- العنوان -->
+                <div class="contact-info-item">
+                    <div class="contact-info-value-icon">
+                        <div class="contact-info-icon">
+                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+                                <path d="M32 10c-8 0-14 6-14 14 0 12 14 26 14 26s14-14 14-26c0-8-6-14-14-14Z" fill="#f5b400" stroke="#f3f6fb" stroke-width="3"/>
+                                <circle cx="32" cy="24" r="5" fill="#f3f6fb"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info-label">{{ $settings['address'] }}</div>
+                    </div>
+                </div>
+
+                <!-- ساعات العمل -->
                 <div class="contact-info-item">
                     <div class="contact-info-value-icon">
                         <div class="contact-info-icon">

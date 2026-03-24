@@ -365,8 +365,19 @@ function initDepartments() {
 
     /* --- Contact Section --- */
     function initContact() {
+        // ✅ التحقق إذا كان المحتوى موجود بالفعل في HTML
         const wrap = byId("contact-info");
-        if (!wrap || !contactData) return;
+        if (!wrap) return;
+
+        // ✅ إذا كان الـ HTML يحتوي بالفعل على بيانات، لا نعيد كتابته
+        // نتحقق إذا كان الـ div يحتوي على أطفال (أي أن الـ HTML كتبها Blade)
+        if (wrap.children.length > 0) {
+            console.log('✅ Contact info already loaded from Blade');
+            return; // نخرج من الدالة ولا نعيد كتابة المحتوى
+        }
+
+        // إذا لم يكن هناك محتوى، نستخدم JavaScript (للحالات النادرة)
+        if (!contactData) return;
 
         const icons = {
             phone: `<svg width="34" height="34" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="24" stroke="#f3f6fb" stroke-width="4" opacity=".9"/><path d="M25 18c2 12 9 20 21 28" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/><path d="M40 39l6 7" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/></svg>`,
@@ -400,13 +411,11 @@ function initDepartments() {
                 <div class="contact-info-value-icon">
                     <div class="contact-info-icon">${icons.time}</div>
                     <div class="contact-info-value small">
-                        ${contactData.working_hours}
+                        ${contactData.hours?.map(h => `<div>${h}</div>`).join("")}
                     </div>
                 </div>
             </div>
         `;
-
-        const form = byId("contact-form");
     }
 
     // ─────────────────────────────────────────────────────────────────────────────
