@@ -176,11 +176,11 @@ function initializeApp(laravelData) {
                 <div class="slide-content">
                     <div class="slide-text">
                         <h2 class="slide-title">${slide.title}</h2>
-                        <p class="slide-subtitle">${slide.subtitle}</p>
                         <div class="slide-buttons">
                             <button class="btn btn-primary" onclick="scrollToSection('contact')">&#9658; تواصل معنا</button>
                             <button class="btn btn-secondary" onclick="scrollToSection('map')">&#9658; الوصول للموقع </button>
                         </div>
+                        <p class="slide-subtitle">${slide.subtitle}</p>
                     </div>
                 </div>
             `;
