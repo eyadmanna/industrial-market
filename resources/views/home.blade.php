@@ -188,6 +188,13 @@
             <div class="map-line"></div>
             <h2 class="map-title">موقعنا</h2>
             <div class="map-line"></div>
+
+            <div class="map-location-label" id="map-location-label" style="margin-top:15px;">
+                <span class="label-arrow">◀</span>
+                <span>{{ $settings['address'] }}</span>
+            </div>
+            <br>
+            <br>
         </div>
 
         <!-- Main block -->
@@ -201,16 +208,11 @@
 
                     <div class="map-image-overlay"></div>
 
-                    <div class="map-location-label" id="map-location-label">
-                        <span class="label-arrow">◀</span>
-                        <span>{{ $settings['address'] }}</span>
-                    </div>
-
                     <a id="map-directions-btn" class="map-directions-btn"
                        href="{{ $settings['map_link'] }}"
                        target="_blank" rel="noopener noreferrer">
                         <span class="btn-arrow">›</span>
-                        <span>إضغط هنا للذهاب للموقع  </span>
+                        <span>إضغط للذهاب للموقع  </span>
                     </a>
                 </div>
             </div>
