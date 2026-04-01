@@ -189,11 +189,7 @@
             <h2 class="map-title">موقعنا</h2>
             <div class="map-line"></div>
 
-            <!-- Location label -->
             <div class="map-location-label" id="map-location-label" style="margin-top:15px;">
-                <span class="label-arrow">◀</span>
-                <span>{{ $settings['address'] }}</span>
-                <span class="label-arrow">▶</span>
             </div>
             <br>
             <br>

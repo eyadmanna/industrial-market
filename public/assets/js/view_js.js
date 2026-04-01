@@ -348,7 +348,7 @@ function initDepartments() {
         const image = byId("map-building-image");
 
         if (label && mapData?.locationLabel) {
-            label.innerHTML = `<span class="label-arrow">◀</span> <span>${mapData.locationLabel}</span>`;
+            label.innerHTML = `<span class="label-arrow">◀</span> <span>${mapData.locationLabel}</span><span class="label-arrow">▶</span>`;
         }
 
         if (button && mapData?.directionsUrl) {
