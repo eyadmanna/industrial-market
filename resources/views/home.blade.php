@@ -199,7 +199,7 @@
         </div>
 
         <!-- Main block -->
-        <div class="map-card js-reveal" style="margin-top:40px">
+        <div class="map-card js-reveal" style="margin-top:60px !important">
             <!-- Right side: image + CTA -->
             <div class="map-right">
                 <div class="map-image-wrap">
