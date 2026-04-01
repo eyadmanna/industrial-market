@@ -192,13 +192,14 @@
             <div class="map-location-label" id="map-location-label" style="margin-top:15px;">
                 <span class="label-arrow">◀</span>
                 <span>{{ $settings['address'] }}</span>
+                <span class="label-arrow">▶</span>
             </div>
             <br>
             <br>
         </div>
 
         <!-- Main block -->
-        <div class="map-card js-reveal">
+        <div class="map-card js-reveal" style="margin-top:40px">
             <!-- Right side: image + CTA -->
             <div class="map-right">
                 <div class="map-image-wrap">
