@@ -176,12 +176,11 @@ function initializeApp(laravelData) {
                 <div class="slide-content">
                     <div class="slide-text">
                         <h2 class="slide-title">${slide.title}</h2>
+                        <p class="slide-subtitle"><strong>${slide.subtitle}</strong></p>
                         <div class="slide-buttons">
                             <button class="btn btn-primary" onclick="scrollToSection('contact')">&#9658; تواصل معنا</button>
                             <button class="btn btn-secondary" onclick="scrollToSection('map')">&#9658; الوصول للموقع </button>
                         </div>
-                        <br>
-                        <p class="slide-subtitle"><strong>${slide.subtitle}</strong></p>
                     </div>
                 </div>
             `;
@@ -348,7 +347,7 @@ function initDepartments() {
         const image = byId("map-building-image");
 
         if (label && mapData?.locationLabel) {
-            label.innerHTML = `<span class="label-arrow">◀</span> <span>${mapData.locationLabel}</span><span class="label-arrow">▶</span>`;
+            label.innerHTML = `<span class="label-arrow">◀</span><div class="map-location-label-text"><span class="map-location-label-2">${mapData.locationLabel.slice(0, 16)}</span><span class="map-location-label-1">${mapData.locationLabel.split("-")[2]}</span></div><span class="label-arrow">▶</span>`;
         }
 
         if (button && mapData?.directionsUrl) {
