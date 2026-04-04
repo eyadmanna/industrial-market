@@ -184,19 +184,19 @@
 <section id="map" class="map-section">
     <div class="map-container">
         <!-- Title -->
-        <div class="map-title-row js-reveal">
-            <div class="map-line"></div>
-            <h2 class="map-title">موقعنا</h2>
-            <div class="map-line"></div>
-
-            <div class="map-location-label" id="map-location-label" style="margin-top:15px;">
+        <div class="map-title-column js-reveal">
+      <div class="map-title-row js-reveal">
+        <div class="map-line"></div>
+      <h2 class="map-title">موقعنا</h2>
+      <div class="map-line"></div>
+      </div>
+      <div class="map-location-label" id="map-location-label">
+             
             </div>
-            <br>
-            <br>
-        </div>
+    </div>
 
         <!-- Main block -->
-        <div class="map-card js-reveal" style="margin-top:60px !important">
+        <div class="map-card js-reveal">
             <!-- Right side: image + CTA -->
             <div class="map-right">
                 <div class="map-image-wrap">
@@ -206,12 +206,14 @@
 
                     <div class="map-image-overlay"></div>
 
-                    <a id="map-directions-btn" class="map-directions-btn"
-                       href="{{ $settings['map_link'] }}"
-                       target="_blank" rel="noopener noreferrer">
+                   <a
+                        id="map-directions-btn"
+                        class="map-directions-btn"
+                        href="{{ $settings['map_link'] }}"
+                        target="_blank" rel="noopener noreferrer">
                         <span class="btn-arrow">›</span>
-                        <span>إضغط للذهاب للموقع  </span>
-                    </a>
+                        <span> اضفط  للذهاب الموقع </span>
+          </a>
                 </div>
             </div>
 
@@ -273,7 +275,7 @@
                         </div>
                     </div>
 
-                    <div class="input-group textarea-group">
+                    <div id="textarea-group" class="input-group textarea-group">
                         <textarea id="contact-message" name="message"
                                 placeholder="الرسالة *"
                                 required
@@ -307,14 +309,14 @@
                         </div>
                         <div class="contact-info-label">الهاتف</div>
                     </div>
-                    <div class="contact-info-value-icon">
+                    <div class="contact-info-value-icon contact-value">
                         <div class="contact-info-value" style="direction:ltr">{{ $settings['phone'] }}</div>
                     </div>
                 </div>
 
                 <!-- البريد الإلكتروني -->
                 <div class="contact-info-item">
-                    <div class="contact-info-value-icon">
+                    <div class="contact-info-value-icon ">
                         <div class="contact-info-icon">
                             <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
                                 <rect x="10" y="16" width="44" height="32" fill="#f3f6fb" opacity=".95"/>
@@ -323,14 +325,14 @@
                         </div>
                         <div class="contact-info-label">البريد الإلكتروني</div>
                     </div>
-                    <div class="contact-info-value-icon">
+                    <div class="contact-info-value-icon contact-value">
                         <div class="contact-info-value" style="direction:ltr">{{ $settings['email'] }}</div>
                     </div>
                 </div>
 
                 <!-- العنوان -->
                 <div class="contact-info-item">
-                    <div class="contact-info-value-icon">
+                    <div class="contact-info-value-icon contact-value">
                         <div class="contact-info-icon">
                             <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
                                 <path d="M32 10c-8 0-14 6-14 14 0 12 14 26 14 26s14-14 14-26c0-8-6-14-14-14Z" fill="#f5b400" stroke="#f3f6fb" stroke-width="3"/>
@@ -341,21 +343,47 @@
                     </div>
                 </div>
 
-                <!-- ساعات العمل -->
+                <!-- وسائل التواصل الاجتماعي -->
                 <div class="contact-info-item">
                     <div class="contact-info-value-icon">
                         <div class="contact-info-icon">
                             <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
-                                <circle cx="32" cy="32" r="24" stroke="#f3f6fb" stroke-width="4"/>
-                                <path d="M32 20v13l10 7" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="32" cy="32" r="24" stroke="#f3f6fb" stroke-width="4" opacity=".9"/>
+                                <path d="M32 18v28M18 32h28" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
                             </svg>
                         </div>
-                        <div class="contact-info-value small">
-                            {{ $settings['working_hours'] }}
+                        <div class="contact-info-label">تابعونا على</div>
+                    </div>
+                    <div class="contact-info-value-icon contact-value">
+                        <div class="social-links-flex">
+                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="contact-social-btn facebook">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                                </svg>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="contact-social-btn instagram">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="contact-social-btn twitter">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                                </svg>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="contact-social-btn linkedin">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
+
         </div>
     </div>
 </section>
