@@ -301,11 +301,11 @@
                 <div class="contact-info-item">
                     <div class="contact-info-value-icon">
                         <div class="contact-info-icon">
-                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
-                                <circle cx="32" cy="32" r="24" stroke="#f3f6fb" stroke-width="4" opacity=".9"/>
-                                <path d="M25 18c2 12 9 20 21 28" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
-                                <path d="M40 39l6 7" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
-                            </svg>
+
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.63 2.63a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.45-1.15a2 2 0 0 1 2.11-.45c.85.3 1.73.51 2.63.63A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+
                         </div>
                         <div class="contact-info-label">الهاتف</div>
                     </div>
@@ -347,10 +347,13 @@
                 <div class="contact-info-item">
                     <div class="contact-info-value-icon">
                         <div class="contact-info-icon">
-                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
-                                <circle cx="32" cy="32" r="24" stroke="#f3f6fb" stroke-width="4" opacity=".9"/>
-                                <path d="M32 18v28M18 32h28" stroke="#f3f6fb" stroke-width="5" stroke-linecap="round"/>
-                            </svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="18" cy="5" r="3"></circle>
+        <circle cx="6" cy="12" r="3"></circle>
+        <circle cx="18" cy="19" r="3"></circle>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+    </svg>
                         </div>
                         <div class="contact-info-label">تابعونا على</div>
                     </div>
@@ -368,18 +371,12 @@
                                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                 </svg>
                             </a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="contact-social-btn twitter">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                                </svg>
-                            </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="contact-social-btn linkedin">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                                    <rect x="2" y="9" width="4" height="12"></rect>
-                                    <circle cx="4" cy="4" r="2"></circle>
-                                </svg>
-                            </a>
+                            
+                           <a href="https://www.tiktok.com/@yourusername" target="_blank" rel="noopener noreferrer" class="contact-social-btn tiktok">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-1.88V14.2a5.379 5.379 0 1 1-5.379-5.379c.298 0 .59.027.874.077v2.802a2.575 2.575 0 1 0 1.63 2.4V2h2.875a4.8 4.8 0 0 0 3.77 1.88v2.806z"/>
+    </svg>
+</a>
                         </div>
                     </div>
                 </div>
@@ -392,27 +389,7 @@
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-content">
-            <!-- Social Icons -->
-            <div class="footer-social">
-                <a href="#" class="social-icon whatsapp">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2a10 10 0 0 0-8.7 15l-1.3 5 5-1.3A10 10 0 1 0 12 2Z"/>
-                    </svg>
-                </a>
-
-                <a href="#" class="social-icon instagram">
-                    <svg viewBox="0 0 24 24">
-                        <rect x="4" y="4" width="16" height="16" rx="5"/>
-                        <circle cx="12" cy="12" r="4"/>
-                    </svg>
-                </a>
-
-                <a href="#" class="social-icon skype">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 4c4.4 0 8 3 8 7s-3.6 7-8 7-8-3-8-7 3.6-7 8-7z"/>
-                    </svg>
-                </a>
-            </div>
+           
 
             <!-- Footer Text -->
             <p class="footer-text">

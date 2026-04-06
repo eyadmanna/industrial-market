@@ -1420,3 +1420,11 @@ body {
     margin-bottom: 12px;
     text-align: center;
 }
+
+.tiktok {
+    color: white;
+}
+
+.tiktok:hover {
+    color: #ff0050;
+}
