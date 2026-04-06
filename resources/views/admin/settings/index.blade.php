@@ -41,13 +41,7 @@
                     <label for="map_location" class="form-label">موقع الخريطة (جزء الـ URL)</label>
                     <input type="text" class="form-control" id="map_location" name="map_location"
                            value="{{ $settings['map_location'] }}" required>
-                    <small class="text-muted">مثال: G792%2BC48%20%D8%A7%D9%84%D9%86%D8%AE%D9%8A%D9%84%20%D8%AC%D8%AF%D8%A9</small>
-                </div>
-
-                <div class="mb-3">
-                    <label for="map_link" class="form-label">رابط خرائط جوجل الكامل</label>
-                    <input type="url" class="form-control" id="map_link" name="map_link"
-                           value="{{ $settings['map_link'] }}" required>
+                    <small class="text-muted">مثال: 21.5185334,39.2503431</small>
                 </div>
 
                 <!-- ✅ وصف قسم من نحن -->

@@ -191,7 +191,7 @@
       <div class="map-line"></div>
       </div>
       <div class="map-location-label" id="map-location-label">
-             
+
             </div>
     </div>
 
@@ -209,7 +209,7 @@
                    <a
                         id="map-directions-btn"
                         class="map-directions-btn"
-                        href="{{ $settings['map_link'] }}"
+                        href="https://maps.google.com/maps?q={{ $settings['map_location'] }}"
                         target="_blank" rel="noopener noreferrer">
                         <span class="btn-arrow">›</span>
                         <span> اضفط  للذهاب الموقع </span>
@@ -371,7 +371,7 @@
                                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                 </svg>
                             </a>
-                            
+
                            <a href="https://www.tiktok.com/@yourusername" target="_blank" rel="noopener noreferrer" class="contact-social-btn tiktok">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
         <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-1.88V14.2a5.379 5.379 0 1 1-5.379-5.379c.298 0 .59.027.874.077v2.802a2.575 2.575 0 1 0 1.63 2.4V2h2.875a4.8 4.8 0 0 0 3.77 1.88v2.806z"/>
@@ -389,7 +389,7 @@
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-content">
-           
+
 
             <!-- Footer Text -->
             <p class="footer-text">

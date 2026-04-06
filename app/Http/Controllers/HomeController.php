@@ -87,6 +87,7 @@ class HomeController extends Controller
         $mapData = [
             'locationLabel' => Setting::get('address', 'المنطقة - الصناعية - المدينة'),
             'directionsUrl' => Setting::get('map_link', 'https://maps.app.goo.gl/3SkkY5sLWqqXQfZn8'),
+            'map_location' => Setting::get('map_location', '21.5185334,39.2503431'),
             'buildingImage' => 'assets/media/image-map.jpg',
             'mapEmbedUrl' => 'https://maps.google.com/maps?q=' . urlencode(Setting::get('address', '21.5185334,39.2503431')) . '&output=embed',
         ];
@@ -97,7 +98,7 @@ class HomeController extends Controller
             'email' => $contactData['email'],
             'address' => $contactData['addressLabel'],
             'working_hours' => $contactData['working_hours'],
-            'map_location' => Setting::get('map_location', '21.5185334,39.2503431'),
+            'map_location' => $mapData['map_location'],
             'map_link' => $mapData['directionsUrl'],
         ];
 

@@ -16,7 +16,6 @@ class SettingController extends Controller
             'address' => Setting::get('address'),
             'working_hours' => Setting::get('working_hours'),
             'map_location' => Setting::get('map_location'),
-            'map_link' => Setting::get('map_link'),
             'about_description' => Setting::get('about_description'),
             'departments_description' => Setting::get('departments_description'),
         ];
@@ -32,7 +31,6 @@ class SettingController extends Controller
             'address' => 'required|string',
             'working_hours' => 'required|string',
             'map_location' => 'required|string',
-            'map_link' => 'required|url',
             'about_description' => 'nullable|string',
             'departments_description' => 'nullable|string',
         ]);

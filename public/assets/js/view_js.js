@@ -350,14 +350,6 @@ function initDepartments() {
             label.innerHTML = `<span class="label-arrow">◀</span><div class="map-location-label-text"><span class="map-location-label-2">${mapData.locationLabel.slice(0, 16)}</span><span class="map-location-label-1">${mapData.locationLabel.split("-")[2]}</span></div><span class="label-arrow">▶</span>`;
         }
 
-        if (button && mapData?.directionsUrl) {
-            button.href = mapData.directionsUrl;
-        }
-
-        if (iframe && mapData?.mapEmbedUrl) {
-            iframe.src = mapData.mapEmbedUrl;
-        }
-
         if (image && mapData?.buildingImage) {
             image.src = mapData.buildingImage;
         }
